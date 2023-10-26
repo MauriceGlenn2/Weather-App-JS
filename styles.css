@@ -10,3 +10,83 @@
 html {
   scroll-behavior: smooth;
 }
+
+body{
+    background-color: blueviolet;
+}
+
+ul{
+    text-decoration: none;
+    list-style: none;
+}
+
+.row{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav__links{
+    display: flex;
+}  
+
+.nav__link{
+    padding: 0 20px;
+    cursor: not-allowed;
+}
+
+/* Location bar */
+.results__container{
+    margin-top: 50px;
+}
+
+.location__wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.location{
+ padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 56px;
+  border-radius: 9999px;
+  border-width: 2px;
+  width: 40%;
+  padding-left: 32px;
+  font-weight: 700;
+  transition: 300ms;
+  font-size: 16px;
+  color: #243e63;
+  border-color: rgb(36, 62, 111, 0.3);
+  opacity: 0.4;
+  outline: none;
+  transition: 300ms;
+
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            appearance: none;
+}
+.location[type="text"]:focus{
+
+}
+
+.search__btn{
+    position: absolute;
+    right: 10px; /* Adjust the position to align the button properly */
+    top: 50%; /* Vertically center the button */
+    transform: translateY(-50%); /* Vertically center the button */
+    border: none;
+    /* background: transparent; */
+}
