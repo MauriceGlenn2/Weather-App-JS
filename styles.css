@@ -11,56 +11,63 @@ html {
   scroll-behavior: smooth;
 }
 
-body{
-    background-color: blueviolet;
+body {
+  background-color: blueviolet;
 }
 
-ul{
-    text-decoration: none;
-    list-style: none;
+ul {
+  text-decoration: none;
+  list-style: none;
 }
 
-.row{
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 32px;
+.row {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px;
 }
 
-nav{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.nav__links{
-    display: flex;
-}  
+.nav__links {
+  display: flex;
+}
 
-.nav__link{
-    padding: 0 20px;
-    cursor: not-allowed;
+.nav__link {
+  padding: 0 20px;
+  cursor: not-allowed;
 }
 
 /* Location bar */
-.results__container{
-    margin-top: 50px;
+.results__container {
+  margin-top: 50px;
+  /* position: relative; */
 }
 
-.location__wrapper{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+.results__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.location{
- padding-top: 20px;
+.location__wrapper {
+  position: relative;
+  max-width: 100%;
+  width: 400px;
+}
+
+.location__wrapper input {
+  border: 2px solid white;
+  width: 100%;
+  padding-top: 20px;
   padding-bottom: 20px;
   padding-right: 56px;
   border-radius: 9999px;
   border-width: 2px;
-  width: 40%;
   padding-left: 32px;
   font-weight: 700;
   transition: 300ms;
@@ -70,23 +77,25 @@ nav{
   opacity: 0.4;
   outline: none;
   transition: 300ms;
+}
 
+.location__wrapper button {
+  background-color: white;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  height: 80%;
+  position: absolute;
+  right: 0;
+  top: 10%;
+  transform: translateX(-10%);
+  border: none;
+  cursor: pointer;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            appearance: none;
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
 }
-.location[type="text"]:focus{
-
-}
-
-.search__btn{
-    position: absolute;
-    right: 10px; /* Adjust the position to align the button properly */
-    top: 50%; /* Vertically center the button */
-    transform: translateY(-50%); /* Vertically center the button */
-    border: none;
-    /* background: transparent; */
+.location[type="text"]:focus {
 }
