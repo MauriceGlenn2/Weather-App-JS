@@ -20,6 +20,10 @@ ul {
   list-style: none;
 }
 
+p{
+  padding-top: 20px;
+}
+
 .row {
   width: 100%;
   max-width: 1200px;
@@ -46,6 +50,14 @@ nav {
 .results__container {
   margin-top: 50px;
   /* position: relative; */
+  display: flex;
+  flex-direction: column;
+}
+
+.header__title{
+  font-weight: 700;
+  font-size: 32px;
+  padding: 20px 0;
 }
 
 .results__container {
@@ -57,7 +69,6 @@ nav {
 .location__wrapper {
   position: relative;
   max-width: 100%;
-  width: 400px;
 }
 
 .location__wrapper input {
@@ -80,7 +91,7 @@ nav {
 }
 
 .location__wrapper button {
-  background-color: white;
+  background-color: #8DD2D8;
   border-radius: 50%;
   aspect-ratio: 1;
   height: 80%;
@@ -97,5 +108,32 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   appearance: none;
 }
-.location[type="text"]:focus {
+input:focus {
+  border-color: #40B0BA;
+}
+
+/* Temps */
+.temps__wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.temp__card{
+  width: 100%;
+  text-align: center;
+  border-radius: 20px;
+  border-color: #8DD2D8 !important;
+  border: solid;
+  max-width: 470px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 20px;
+}
+
+.card__split{
+  border-bottom: 1px solid #D5EEF1;
+  padding-top: 20px;
 }
