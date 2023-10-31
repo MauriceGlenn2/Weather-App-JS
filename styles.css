@@ -116,7 +116,7 @@ input:focus {
 .temps__wrapper{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .temp__card{

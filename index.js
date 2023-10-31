@@ -7,7 +7,7 @@ const zipCodeInput = document.getElementById("zipCodeInput");
 const searchButton = document.getElementById("searchButton");
 const high = document.querySelector(".high")
 const low = document.querySelector(".low")
-// const location = document.querySelector(".weekly--para--location");
+const weatherLocation = document.querySelector(".temps__wrapper");
 let temps;
 
 async function getLocationData(zipCode) {
@@ -30,7 +30,11 @@ async function getWeatherForecast(locationKey) {
       `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=jzepoFpxGnzzlfOpukbXNpWnkrmplkKD`
     );
     const data = await response.json();
-    console.log(data);
+
+    weatherLocation.innerHTML = data.DailyForecasts
+      .map((DailyForecasts) => tempsHtml(DailyForecasts))
+      .join("");
+
     return data;
   } catch (error) {
     console.error("Error fetching weather forecast:", error);
@@ -74,14 +78,16 @@ searchButton.addEventListener("click", async () => {
 
 
 //placing data in htlm
-// const tempsHtml = temps.map(temp =>{
-//     return `<div class="temp__card">
-//             <img src="" alt="">
-//             <h1 class="weekly--para">day 1 Temp</h1>
-//             <h1 class="weekly--para--location">Location</h1>
-//             <div class="card__split"></div>
-//             <p class="high">High: </p>
-//             <p class="low">Low: </p>
-//         </div>`
-// })
+function tempsHtml(DailyForecasts) {
+  console.log(DailyForecasts);
+  
+  return `<div class="temp__card">
+            <img src="${DailyForecasts.Day.Icon}" alt="">
+            <h1 class="weekly--para">${DailyForecasts.Date}</h1>
+            <h1 class="weekly--para--location">${DailyForecasts.Day.IconPhrase}</h1>
+            <div class="card__split"></div>
+            <p class="high">High: ${DailyForecasts.Temperature.Maximum.Value} ${DailyForecasts.Temperature.Maximum.Unit} </p>
+            <p class="low">Low: ${DailyForecasts.Temperature.Minimum.Value} ${DailyForecasts.Temperature.Minimum.Unit}</p>
+        </div>`;
+}
 
