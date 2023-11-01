@@ -36,6 +36,9 @@ async function getWeatherForecast(locationKey) {
     weatherLocation.innerHTML = data.DailyForecasts.map((DailyForecasts) =>
       tempsHtml(DailyForecasts)
     ).join("");
+
+
+    console.log(data);
     showTempCards();
     return data;
   } catch (error) {
@@ -87,7 +90,7 @@ searchButton.addEventListener("click", async () => {
 
 
 //Placing data in htlm form
-function tempsHtml(DailyForecasts) {
+function tempsHtml(DailyForecasts, ParentCity) {
   const IconPhrase = DailyForecasts.Day.IconPhrase;
   //Showing Icons for corresponding weather 
    const iconMap = {
@@ -100,11 +103,14 @@ function tempsHtml(DailyForecasts) {
      Wind: "./images/wind.png",
      Mist: "./images/mist.png",
      Snow: "./images/snow.png",
+     Cloudy: "./images/clouds.png",
    };
 
    const iconSrc = iconMap[IconPhrase] 
 
   return `<div class="temp__card">
+            <h1 class="weekly--para">${ParentCity.LocalizedName}</h1>
+            <h1 class="weekly--para"></h1>
             <img class="temp__img" src="${iconSrc}" alt="">
             <h1 class="weekly--para--location">${DailyForecasts.Day.IconPhrase}</h1>
             <div class="card__split"></div>

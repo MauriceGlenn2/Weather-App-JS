@@ -15,6 +15,10 @@ body {
   background-color:#F0F9FA
 }
 
+span{
+  color: #40B0BA;
+}
+
 ul {
   text-decoration: none;
   list-style: none;
@@ -22,6 +26,8 @@ ul {
 
 p{
   padding-top: 20px;
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .row {
@@ -44,6 +50,7 @@ nav {
 .nav__link {
   padding: 0 20px;
   cursor: not-allowed;
+  font-weight: 500;
 }
 
 /* Location bar */
@@ -56,8 +63,9 @@ nav {
 
 .header__title{
   font-weight: 700;
-  font-size: 32px;
+  font-size: 48px;
   padding: 20px 0;
+  text-align: center;
 }
 
 .results__container {
@@ -69,6 +77,10 @@ nav {
 .location__wrapper {
   position: relative;
   max-width: 100%;
+}
+
+.search__img{
+  width: 50%;
 }
 
 .location__wrapper input {
@@ -124,6 +136,10 @@ input:focus {
 
 }
 
+.weekly--para--location{
+  text-align: center;
+}
+
 .temp__card{
   width: 100%;
   text-align: center;
@@ -143,9 +159,7 @@ input:focus {
   width: 100%;
 }
 
-.search__img{
-  width: 50%;
-}
+
 
 .card__split{
   border-bottom: 1px solid #D5EEF1;
