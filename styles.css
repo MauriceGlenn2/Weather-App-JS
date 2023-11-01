@@ -91,8 +91,6 @@ nav {
 }
 
 .location__wrapper button {
-  background-color: #8DD2D8;
-  border-radius: 50%;
   aspect-ratio: 1;
   height: 80%;
   position: absolute;
@@ -101,6 +99,11 @@ nav {
   transform: translateX(-10%);
   border: none;
   cursor: pointer;
+}
+
+button {
+  background: none;
+
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -117,6 +120,8 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
+
 }
 
 .temp__card{
@@ -131,9 +136,38 @@ input:focus {
   padding-left: 20px;
   padding-right: 20px;
   margin: 20px;
+  display: none;
+}
+
+.temp__img{
+  width: 100%;
+}
+
+.search__img{
+  width: 50%;
 }
 
 .card__split{
   border-bottom: 1px solid #D5EEF1;
   padding-top: 20px;
 }
+
+.loading {
+  font-size: 80px;
+  z-index: -1;
+  color: #8dd2d8;;
+}
+
+.fa-spinner {
+  animation: spinner 750ms infinite linear;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

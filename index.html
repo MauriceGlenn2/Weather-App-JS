@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
+       <script
+      src="https://kit.fontawesome.com/d291aecf1c.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="./index.js" defer></script>
-    <title>Document</title>
+    <title>Weather Checker</title>
 </head>
 <body>
     <div class="row">
@@ -22,14 +26,17 @@
         <h1 class="header__title">Check your local area weather fast! </h1>
         <div class="location__wrapper">
             <input class="location" id="zipCodeInput" type="number" maxlength="5" placeholder="Enter Zip Code">
-            <button class="search__btn" id="searchButton" >S</button>
+            <button id="searchButton" ><img class="search__img" src="./images/search.png" alt=""></button>
         </div>
     </section>
     <section class="row temps__wrapper">
+        <div class="loading">
+        <i class="fas fa-spinner"></i>
+        </div>
         <div class="temp__card">
-            <img src="" alt="">
-            <h1 class="weekly--para">day 1 Temp</h1>
-            <h1 class="weekly--para--location">Location</h1>
+            <img class="temp__img" src="./images/" alt="">
+            <h1 class="weekly--para"></h1>
+            <h1 class="weekly--para--location"></h1>
             <div class="card__split"></div>
             <p class="high">High: </p>
             <p class="low">Low: </p>

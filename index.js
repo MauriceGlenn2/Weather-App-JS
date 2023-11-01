@@ -1,15 +1,18 @@
-//AccuWeather API Key: jzepoFpxGnzzlfOpukbXNpWnkrmplkKD
-//get location: "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=jzepoFpxGnzzlfOpukbXNpWnkrmplkKD&q=78227";
-//5 day forcast: "http://dataservice.accuweather.com/forecasts/v1/daily/5day/34150_PC?apikey=jzepoFpxGnzzlfOpukbXNpWnkrmplkKD"
-
-// Get a reference to the input field and the fetch button
 const zipCodeInput = document.getElementById("zipCodeInput");
 const searchButton = document.getElementById("searchButton");
-const high = document.querySelector(".high")
-const low = document.querySelector(".low")
 const weatherLocation = document.querySelector(".temps__wrapper");
-let temps;
+const loadingData = document.querySelector(".loading")
+const zipCodeSuccess = document.querySelector(".temp__card")
 
+//showing temps when data loads
+function showTempCards() {
+  const tempCards = document.querySelectorAll(".temp__card");
+  tempCards.forEach((card) => {
+    card.style.display = "block";
+  });
+}
+
+//Fetching Data from API
 async function getLocationData(zipCode) {
   try {
     const response = await fetch(
@@ -30,11 +33,10 @@ async function getWeatherForecast(locationKey) {
       `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=jzepoFpxGnzzlfOpukbXNpWnkrmplkKD`
     );
     const data = await response.json();
-
-    weatherLocation.innerHTML = data.DailyForecasts
-      .map((DailyForecasts) => tempsHtml(DailyForecasts))
-      .join("");
-
+    weatherLocation.innerHTML = data.DailyForecasts.map((DailyForecasts) =>
+      tempsHtml(DailyForecasts)
+    ).join("");
+    showTempCards();
     return data;
   } catch (error) {
     console.error("Error fetching weather forecast:", error);
@@ -45,24 +47,30 @@ async function getWeatherForecast(locationKey) {
 async function main() {
   const zipCode = zipCodeInput.value; // Get ZIP code from user input
   if (zipCode) {
+    loadingData.style.display = "block"; 
     const locationData = await getLocationData(zipCode);
+
     if (locationData) {
       const locationKey = locationData[0]?.Key;
       await getWeatherForecast(locationKey);
     }
   } else {
     console.log("Please enter a ZIP code.");
+    loadingData.style.display = "none";
+
   }
 }
 
+
 main();
 
-// Add an event listener to the fetch button
+// listener for fetch button
 searchButton.addEventListener("click", async () => {
   const zipCode = zipCodeInput.value;
-  console.log("Button Clicked");
   if (zipCode) {
+    loadingData.style.display = "block"
     try {
+      await new Promise((resolve) => setTimeout(resolve, 3000))
       const locationData = await getLocationData(zipCode);
       if (locationData) {
         const locationKey = locationData[0]?.Key;
@@ -70,24 +78,37 @@ searchButton.addEventListener("click", async () => {
       }
     } catch (error) {
       console.error("An error occurred while fetching data:", error);
+    } finally{
+      loadingData.style.display = "none"
     }
-  } else {
-    console.log("Please enter a ZIP code.");
   }
 });
 
 
-//placing data in htlm
+
+//Placing data in htlm form
 function tempsHtml(DailyForecasts) {
-  console.log(DailyForecasts);
-  
+  const IconPhrase = DailyForecasts.Day.IconPhrase;
+  //Showing Icons for corresponding weather 
+   const iconMap = {
+     Rain: "./images/rain.png",
+     "Intermittent clouds": "./images/clouds.png",
+     "Mostly cloudy": "./images/clouds.png",
+     "Partly sunny": "./images/clouds.png",
+     Sunny: "./images/clear.png",
+     "Mostly sunny": "./images/clear.png",
+     Wind: "./images/wind.png",
+     Mist: "./images/mist.png",
+     Snow: "./images/snow.png",
+   };
+
+   const iconSrc = iconMap[IconPhrase] 
+
   return `<div class="temp__card">
-            <img src="${DailyForecasts.Day.Icon}" alt="">
-            <h1 class="weekly--para">${DailyForecasts.Date}</h1>
+            <img class="temp__img" src="${iconSrc}" alt="">
             <h1 class="weekly--para--location">${DailyForecasts.Day.IconPhrase}</h1>
             <div class="card__split"></div>
-            <p class="high">High: ${DailyForecasts.Temperature.Maximum.Value} ${DailyForecasts.Temperature.Maximum.Unit} </p>
-            <p class="low">Low: ${DailyForecasts.Temperature.Minimum.Value} ${DailyForecasts.Temperature.Minimum.Unit}</p>
+            <p class="high">High: ${DailyForecasts.Temperature.Maximum.Value}&deg ${DailyForecasts.Temperature.Maximum.Unit} </p>
+            <p class="low">Low: ${DailyForecasts.Temperature.Minimum.Value}&deg ${DailyForecasts.Temperature.Minimum.Unit}</p>
         </div>`;
 }
-
