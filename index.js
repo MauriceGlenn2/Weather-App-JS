@@ -1,8 +1,8 @@
 const zipCodeInput = document.getElementById("zipCodeInput");
 const searchButton = document.getElementById("searchButton");
 const weatherLocation = document.querySelector(".temps__wrapper");
-const loadingData = document.querySelector(".loading")
-const zipCodeSuccess = document.querySelector(".temp__card")
+const loadingData = document.querySelector(".loading");
+const zipCodeSuccess = document.querySelector(".temp__card");
 
 //showing temps when data loads
 function showTempCards() {
@@ -49,7 +49,7 @@ async function getWeatherForecast(locationKey) {
 async function main() {
   const zipCode = zipCodeInput.value; // Get ZIP code from user input
   if (zipCode) {
-    loadingData.style.display = "block"; 
+    loadingData.style.display = "block";
     const locationData = await getLocationData(zipCode);
 
     if (locationData) {
@@ -58,7 +58,6 @@ async function main() {
     }
   } else {
     loadingData.style.display = "none";
-
   }
 }
 main();
@@ -67,9 +66,9 @@ main();
 searchButton.addEventListener("click", async () => {
   const zipCode = zipCodeInput.value;
   if (zipCode) {
-    loadingData.style.display = "block"
+    loadingData.style.display = "block";
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const locationData = await getLocationData(zipCode);
       if (locationData) {
         const locationKey = locationData[0]?.Key;
@@ -77,40 +76,39 @@ searchButton.addEventListener("click", async () => {
       }
     } catch (error) {
       console.error("An error occurred while fetching data:", error);
-    } finally{
-      loadingData.style.display = "none"
+    } finally {
+      loadingData.style.display = "none";
     }
   }
 });
 
-
-//Placing data in htlm 
+//Placing data in htlm
 function tempsHtml(DailyForecasts) {
   const IconPhrase = DailyForecasts.Day.IconPhrase;
-  //Showing Icons for corresponding weather 
-   const iconMap = {
-     Rain: "./images/rain.png",
-     "Intermittent clouds": "./images/clouds.png",
-     "Mostly cloudy": "./images/clouds.png",
-     "Partly sunny": "./images/clouds.png",
-     Sunny: "./images/clear.png",
-     "Mostly sunny": "./images/clear.png",
-     Wind: "./images/wind.png",
-     Mist: "./images/mist.png",
-     Snow: "./images/snow.png",
-     Cloudy: "./images/clouds.png",
-   };
+  //Showing Icons for corresponding weather
+  const iconMap = {
+    Rain: "./images/rain.png",
+    "Intermittent clouds": "./images/clouds.png",
+    "Mostly cloudy": "./images/clouds.png",
+    "Partly sunny": "./images/clouds.png",
+    Sunny: "./images/clear.png",
+    "Mostly sunny": "./images/clear.png",
+    Wind: "./images/wind.png",
+    Mist: "./images/mist.png",
+    Snow: "./images/snow.png",
+    Cloudy: "./images/clouds.png",
+  };
 
-   const iconSrc = iconMap[IconPhrase] 
+  const iconSrc = iconMap[IconPhrase];
 
-   //Formating Date information from API
-     const date = new Date(DailyForecasts.Date);
-     const month = date.toLocaleString("en-US", { month: "short" }); // Get short month name (e.g., "Nov")
-     const day = date.getDate(); // Get the day of the month (e.g., 2)
-     const year = date.getFullYear(); // Get the year (e.g., 2023)
+  //Formating Date information from API
+  const date = new Date(DailyForecasts.Date);
+  const month = date.toLocaleString("en-US", { month: "short" }); // Get short month name (e.g., "Nov")
+  const day = date.getDate(); // Get the day of the month (e.g., 2)
+  const year = date.getFullYear(); // Get the year (e.g., 2023)
 
-     const formattedDate = `${month} ${day}, ${year}`;
-   
+  const formattedDate = `${month} ${day}, ${year}`;
+
   return `<div class="temp__card">
             <h1 class="weekly--para">${formattedDate}</h1>
             <img class="temp__img" src="${iconSrc}" alt="">
@@ -118,6 +116,5 @@ function tempsHtml(DailyForecasts) {
             <div class="card__split"></div>
             <p class="high">High: ${DailyForecasts.Temperature.Maximum.Value}&deg ${DailyForecasts.Temperature.Maximum.Unit} </p>
             <p class="low">Low: ${DailyForecasts.Temperature.Minimum.Value}&deg ${DailyForecasts.Temperature.Minimum.Unit}</p>
-        </div>`;
+            </div>`;
 }
-
