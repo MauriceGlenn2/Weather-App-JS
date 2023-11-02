@@ -3,6 +3,7 @@ const searchButton = document.getElementById("searchButton");
 const weatherLocation = document.querySelector(".temps__wrapper");
 const loadingData = document.querySelector(".loading")
 const zipCodeSuccess = document.querySelector(".temp__card")
+const localWeatherLocation = document.querySelector(".location__header")
 
 //showing temps when data loads
 function showTempCards() {
@@ -19,6 +20,12 @@ async function getLocationData(zipCode) {
       `http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=jzepoFpxGnzzlfOpukbXNpWnkrmplkKD&q=${zipCode}`
     );
     const data = await response.json();
+
+    // localWeatherLocation.innerHTML = data.ParentCity[{1}]
+    //   .map((LocalizedName) => localWeather(LocalizedName))
+    //   .join("");
+
+
     console.log(data);
     return data;
   } catch (error) {
@@ -58,7 +65,6 @@ async function main() {
       await getWeatherForecast(locationKey);
     }
   } else {
-    console.log("Please enter a ZIP code.");
     loadingData.style.display = "none";
 
   }
@@ -73,7 +79,7 @@ searchButton.addEventListener("click", async () => {
   if (zipCode) {
     loadingData.style.display = "block"
     try {
-      await new Promise((resolve) => setTimeout(resolve, 3000))
+      await new Promise((resolve) => setTimeout(resolve, 1000))
       const locationData = await getLocationData(zipCode);
       if (locationData) {
         const locationKey = locationData[0]?.Key;
@@ -90,7 +96,7 @@ searchButton.addEventListener("click", async () => {
 
 
 //Placing data in htlm form
-function tempsHtml(DailyForecasts, ParentCity) {
+function tempsHtml(DailyForecasts) {
   const IconPhrase = DailyForecasts.Day.IconPhrase;
   //Showing Icons for corresponding weather 
    const iconMap = {
@@ -109,7 +115,7 @@ function tempsHtml(DailyForecasts, ParentCity) {
    const iconSrc = iconMap[IconPhrase] 
 
   return `<div class="temp__card">
-            <h1 class="weekly--para">${ParentCity.LocalizedName}</h1>
+          
             <h1 class="weekly--para"></h1>
             <img class="temp__img" src="${iconSrc}" alt="">
             <h1 class="weekly--para--location">${DailyForecasts.Day.IconPhrase}</h1>
@@ -117,4 +123,10 @@ function tempsHtml(DailyForecasts, ParentCity) {
             <p class="high">High: ${DailyForecasts.Temperature.Maximum.Value}&deg ${DailyForecasts.Temperature.Maximum.Unit} </p>
             <p class="low">Low: ${DailyForecasts.Temperature.Minimum.Value}&deg ${DailyForecasts.Temperature.Minimum.Unit}</p>
         </div>`;
+}
+
+//  <h1 class="weekly--para">${ParentCity.LocalizedName}</h1>
+
+function localWeather(ParentCity) {
+  return `<h1 class="location__header">${ParentCity.LocalizedName}</h1>`;
 }
