@@ -3,7 +3,6 @@ const searchButton = document.getElementById("searchButton");
 const weatherLocation = document.querySelector(".temps__wrapper");
 const loadingData = document.querySelector(".loading")
 const zipCodeSuccess = document.querySelector(".temp__card")
-const localWeatherLocation = document.querySelector(".location__header")
 
 //showing temps when data loads
 function showTempCards() {
@@ -20,13 +19,7 @@ async function getLocationData(zipCode) {
       `http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=jzepoFpxGnzzlfOpukbXNpWnkrmplkKD&q=${zipCode}`
     );
     const data = await response.json();
-
-    // localWeatherLocation.innerHTML = data.ParentCity[{1}]
-    //   .map((LocalizedName) => localWeather(LocalizedName))
-    //   .join("");
-
-
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching location data:", error);
@@ -43,7 +36,6 @@ async function getWeatherForecast(locationKey) {
     weatherLocation.innerHTML = data.DailyForecasts.map((DailyForecasts) =>
       tempsHtml(DailyForecasts)
     ).join("");
-
 
     console.log(data);
     showTempCards();
@@ -69,8 +61,6 @@ async function main() {
 
   }
 }
-
-
 main();
 
 // listener for fetch button
@@ -94,8 +84,7 @@ searchButton.addEventListener("click", async () => {
 });
 
 
-
-//Placing data in htlm form
+//Placing data in htlm 
 function tempsHtml(DailyForecasts) {
   const IconPhrase = DailyForecasts.Day.IconPhrase;
   //Showing Icons for corresponding weather 
@@ -114,9 +103,16 @@ function tempsHtml(DailyForecasts) {
 
    const iconSrc = iconMap[IconPhrase] 
 
+   //Formating Date information from API
+     const date = new Date(DailyForecasts.Date);
+     const month = date.toLocaleString("en-US", { month: "short" }); // Get short month name (e.g., "Nov")
+     const day = date.getDate(); // Get the day of the month (e.g., 2)
+     const year = date.getFullYear(); // Get the year (e.g., 2023)
+
+     const formattedDate = `${month} ${day}, ${year}`;
+   
   return `<div class="temp__card">
-          
-            <h1 class="weekly--para"></h1>
+            <h1 class="weekly--para">${formattedDate}</h1>
             <img class="temp__img" src="${iconSrc}" alt="">
             <h1 class="weekly--para--location">${DailyForecasts.Day.IconPhrase}</h1>
             <div class="card__split"></div>
@@ -125,8 +121,3 @@ function tempsHtml(DailyForecasts) {
         </div>`;
 }
 
-//  <h1 class="weekly--para">${ParentCity.LocalizedName}</h1>
-
-function localWeather(ParentCity) {
-  return `<h1 class="location__header">${ParentCity.LocalizedName}</h1>`;
-}
