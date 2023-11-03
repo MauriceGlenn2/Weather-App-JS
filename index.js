@@ -16,7 +16,7 @@ function showTempCards() {
 async function getLocationData(zipCode) {
   try {
     const response = await fetch(
-      `http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=jzepoFpxGnzzlfOpukbXNpWnkrmplkKD&q=${zipCode}`
+      `https://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=jzepoFpxGnzzlfOpukbXNpWnkrmplkKD&q=${zipCode}`
     );
     const data = await response.json();
     // console.log(data);
@@ -30,7 +30,7 @@ async function getLocationData(zipCode) {
 async function getWeatherForecast(locationKey) {
   try {
     const response = await fetch(
-      `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=jzepoFpxGnzzlfOpukbXNpWnkrmplkKD`
+      `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=jzepoFpxGnzzlfOpukbXNpWnkrmplkKD`
     );
     const data = await response.json();
     weatherLocation.innerHTML = data.DailyForecasts.map((DailyForecasts) =>
